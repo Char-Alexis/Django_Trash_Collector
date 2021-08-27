@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="./stylesheet.css">
+  {% comment %} confirm .css => .html link {% endcomment %}
 </head>
 <body>
 {% if user.is_authenticated %}
@@ -12,6 +14,17 @@
     {% elif group.name == "Employees" %}
     <p>Employee Navbar</p>
     {% endif %}
+
+    {% comment %} revistit for possible correction {% endcomment %}
+
+    <nav class= "navigate">    
+      <a href ="#change pickup day">Home</a>
+      <a href ="#suspend account">Suspend Account</a>
+      <a href ="#account info">Account Info</a>
+    </nav>
+
+
+
   {% endfor %}
   <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% endif %}
