@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Hero</title>
+</head>
+<body>
+    <form action="{% url 'customer:create' %}" method="post">
+        {% csrf_token %}
+        Name: <input type="text" name="name" id="name"><br />
+        User: <input type="text" name="user" id="user"><br />
+        Address: <input type="text" name="address" id="address"><br />
+        Zipcode: <input type="text" name="zipcode" id="zipcode"><br />
+        Balance: <input type="text" name="balance" id="balance"><br />
+        Weekly Pickup Date:  <input type="text" name="Weekly pickup date" id="weekly pickup date"><br />
+        One Time Pickup Date: <input type="text" name="one time pickup date" id="one time pickup date"><br />
+        Suspend Start:<input type="text" name="suspend start" id="suspend start"><br />
+        Suspend End:<input type="text" name="suspend end" id="suspend end"><br />
+        <input type="submit" value="Add!">
+    </form>
+
+
+</body>
+</html>
