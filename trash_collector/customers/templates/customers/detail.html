@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Details Page{% endblock %}
+
+{% block content %}
+<h1>Detail page</h1>
+
+<h1>{{customer}} is {{customer.weekly_pickup_day}} on {{customer.user} <a href="{% url 'customers:edit' customer.id %}">Edit</a> <a href="{% url 'customer:teammates' customer.user %}">See Teammates</a><a href="{% url 'customer:delete' customer.id %}">Delete</a></h1>
+{% endblock %}
