@@ -7,4 +7,8 @@ from . import views
 app_name = "customers"
 urlpatterns = [
     path('', views.index, name="index"),
+    path('new/', views.create, name="create"),
+    path('<int:user_id>', views.detail, name= "detail"),
+    path('edit/<int:user_id>', views.update, name="update"),
+    path('delete/<int:user_id>', views.delete, name= "delete"),
 ]

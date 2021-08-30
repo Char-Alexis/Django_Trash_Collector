@@ -40,3 +40,24 @@ def create(request):
         return HttpResponseRedirect(reverse('customer:index'))
     else:
         return render(request, 'customer/create.html')
+
+def detail(request, user_id):
+    customer_from_db = Customer.objects.get(fk=user_id)
+    return render(request, 'customers/detail.html')
+
+def update(request, user_id):
+    customer_from_db = Customer.objects.get(fk=user_id)
+    if request.method == 'POST':
+        customer_from_db.name = request.POST.get('weekly_pickup_day')
+        customer_from_db.one_time_pickup = request.POST.get('one_time_pickup')
+        customer_from_db.suspend_start = request.POST.get('suspend_start')
+        customer_from_db.suspend_end = request.POST.get('suspend_end')
+        return HttpResponseRedirect(reverse('customers:index'))
+    else:
+        pass
+    return render(request, 'customers/update.html')
+
+def delete(request, user_id):
+    customer_from_db = Customer.objects.get(fk=user_id)
+    customer_from_db.delete()
+    return render(request, 'customers/delete.html')
