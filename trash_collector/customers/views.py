@@ -1,3 +1,4 @@
+from trash_collector.employees.filters
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -5,6 +6,7 @@ from django.contrib.auth import get_user_model
 from .models import Customer
 from .choices import DayOfTheWeek
 from .forms import CustomerUpdateForm
+
 
 # Create your views here.
 
@@ -79,6 +81,7 @@ def update(request, user_id):
         'days_of_the_week': DayOfTheWeek,
     }
     return render(request, 'customers/update.html', context)
+
 
 def delete(request, user_id):
     customer_from_db = Customer.objects.get(pk=user_id)
