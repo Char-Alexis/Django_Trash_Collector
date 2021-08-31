@@ -1,12 +1,13 @@
 # from trash_collector.employees.models import Employees
+from django.http.response import HttpResponseRedirect
 from trash_collector.customers.models import Customer
 from trash_collector import employees
 from trash_collector.customers.views import User
 from trash_collector.employees.models import Employees
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.apps import app
-from .filters import TodaysCustomersFilter
+from django.apps import apps
+
 
 # Create your views here.
 
@@ -16,19 +17,27 @@ from .filters import TodaysCustomersFilter
 def index(request):
     # This line will get the Customer model from the other app, it can now be used to query the db for Customers
     Customer = apps.get_model('customers.Customer')
-    return render(request, 'employees/index.html')
 
-def filter(request, user_id):
-    user = User.objects.get(pk=user_id)
-    employees = Employees.objects.get(user=user)
-    return render(request, 'employees/filter.html')
+        # The following line will get the logged-in in user (if there is one) within any view function
+    user = request.user
 
-customer_filter= TodaysCustomersFilter() 
+    try:
+        # This line inside the 'try' will return the customer record of the logged-in user if one exists
+        logged_in_employee = Employees.objects.get(user=user)
+            # find logged in employee so we can get their zip code
+        # find all customers in employee's zip code
+        zip_code_customers = Customer.objects.filter(zip_code=logged_in_employee.zip_code)
+        # find all customers who are not suspended
+        
+        # find customers with pickupday tihs day or one time pickup today
+        # todays_customers = zip_code_customers.filter()
+        return render(request, 'employees/index.html')
+    except:
+        # TODO: Redirect the user to a 'create' function to finish the registration process if no customer record found
+        return HttpResponseRedirect('employees:create')
 
-context = {'customer', 'zip_code', 'weekly_pickup_day', 'one_time_pickup', 'suspend_start', 'suspend_end',
-        'customer_filter'
-    }
-    return render(request, 'update.html', context)
+
+
 
 # def update(request, user_id):
 #     user = User.objects.get(pk=user_id)

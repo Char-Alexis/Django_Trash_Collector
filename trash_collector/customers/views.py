@@ -1,4 +1,4 @@
-from trash_collector.employees.filters
+# from trash_collector.employees.filters
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -23,7 +23,7 @@ def index(request):
         logged_in_customer = Customer.objects.get(user=user)
     except:
         # TODO: Redirect the user to a 'create' function to finish the registration process if no customer record found
-        return redirect('customers:create')
+        return HttpResponseRedirect('customers:create')
 
     # It will be necessary while creating a Customer/Employee to assign request.user as the user foreign key
     return render(request, 'customers/index.html')
@@ -43,7 +43,7 @@ def create(request):
         suspend_end = request.POST.get('suspend end')
         new_customer = Customer(name=name, user=user, address=address, zip_code=zip_code, balance=balance, weekly_pickup_day=weekly_pickup_day, one_time_pickup= one_time_pickup, suspend_start=suspend_start, suspend_end=suspend_end)
         new_customer.save()
-        return redirect('customers:index')
+        return HttpResponseRedirect('customers:index')
     
     context = {
         'days_of_the_week': DayOfTheWeek,
