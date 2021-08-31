@@ -1,0 +1,21 @@
+<!-- {% extends "base.html" %}
+
+{% block title %}Update Page{% endblock %}
+
+{% block header %}Select / Change Weekly Pickup Day{% endblock %}
+
+{% block content %}
+<form action="{% url 'customer:edit' customer.id %}" method="post">
+    {% csrf_token %}
+    Name:<input type="text" value='{{customer.name}}' name="name" id="name"><br>
+    User:<input type="text" value='{{customer.user}}' name="user" id="user"><br>
+    
+    Weekly Pickup Day:
+    <select name="weekly_pickup_day" id="user">
+        {% for user in weekly_pickup_day %}
+        <option value="{{user.id}}">{{user}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Update!">
+</form>
+{% endblock %} -->

@@ -1,3 +1,4 @@
+# from trash_collector.employees.models import Employees
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.apps import apps
@@ -11,3 +12,10 @@ def index(request):
     # This line will get the Customer model from the other app, it can now be used to query the db for Customers
     Customer = apps.get_model('customers.Customer')
     return render(request, 'employees/index.html')
+
+def filter(request):
+    pass
+
+
+def update(request):
+  pass

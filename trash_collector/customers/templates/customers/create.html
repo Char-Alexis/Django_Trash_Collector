@@ -7,18 +7,22 @@
     <title>Create New Hero</title>
 </head>
 <body>
-    <form action="{% url 'customer:create' %}" method="post">
+    <form method="post">
         {% csrf_token %}
         Name: <input type="text" name="name" id="name"><br />
-        User: <input type="text" name="user" id="user"><br />
         Address: <input type="text" name="address" id="address"><br />
         Zipcode: <input type="text" name="zipcode" id="zipcode"><br />
-        Balance: <input type="text" name="balance" id="balance"><br />
-        Weekly Pickup Date:  <input type="text" name="Weekly pickup date" id="weekly pickup date"><br />
-        One Time Pickup Date: <input type="text" name="one time pickup date" id="one time pickup date"><br />
-        Suspend Start:<input type="text" name="suspend start" id="suspend start"><br />
-        Suspend End:<input type="text" name="suspend end" id="suspend end"><br />
-        <input type="submit" value="Add!">
+        Balance: <input type="number" name="balance" id="balance" step=".01" value="0.00"><br />
+        Weekly Pickup Date:  
+        <select name="weekly pickup day" id="weekly pickup day">
+            {% for day in days_of_the_week %}
+                <option val="day">{{ day }}</option>
+            {% endfor %}
+        </select><br />
+        One Time Pickup Date: <input type="date" name="one time pickup date" id="one time pickup date"><br />
+        Suspend Start:<input type="date" name="suspend start" id="suspend start"><br />
+        Suspend End:<input type="date" name="suspend end" id="suspend end"><br />
+        <button type="submit">Add!</button>
     </form>
 
 

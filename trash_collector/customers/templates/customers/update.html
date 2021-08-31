@@ -5,17 +5,21 @@
 {% block header %}Select / Change Weekly Pickup Day{% endblock %}
 
 {% block content %}
-<form action="{% url 'customer:edit' customer.id %}" method="post">
+<form method="post">
     {% csrf_token %}
-    Name:<input type="text" value='{{customer.name}}' name="name" id="name"><br>
-    User:<input type="text" value='{{customer.user}}' name="user" id="user"><br>
     
     Weekly Pickup Day:
-    <select name="weekly_pickup_day" id="user">
-        {% for user in weekly_pickup_day %}
-        <option value="{{user.id}}">{{user}}</option>
+    {{<select name="weekly_pickup_day" id="user">
+        {% for day in days_of_the_week %}
+            <option value="{{ day }}" {% if day == user.customer.first.weekly_pickup_day %}selected{% endif %}>{{ day }}</option>
         {% endfor %}
-    </select>
-    <input type="submit" value="Update!">
+    </select><br>
+   
 </form>
 {% endblock %}
+
+<!-- )
+1.As a customer, I want to be able to select or change my weekly pickup day.  
+2.As a customer, I want to be able to request an extra, one-time pickup for a specific date of my choice. 
+3.As a customer, I want to be able to specify a START and END date to temporarily suspend my pickups. 
+ -->

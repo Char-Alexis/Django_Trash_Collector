@@ -2,8 +2,15 @@
 
 {% block title %}Details Page{% endblock %}
 
-{% block content %}
-<h1>Detail page</h1>
 
-<h1>{{customer}} is {{customer.weekly_pickup_day}} on {{customer.user} <a href="{% url 'customers:edit' customer.id %}">Edit</a> <a href="{% url 'customer:teammates' customer.user %}">See Teammates</a><a href="{% url 'customer:delete' customer.id %}">Delete</a></h1>
-{% endblock %}
+ <!-- As a customer, I want an easy way to see my current balance so I can budget accordingly.  -->
+
+{% block content %}
+<h1>Current Balance</h1>
+
+{% for check_balance in Customers %}
+<tr>
+    <td>{{check_balance.name}}</td>
+    <td>{{check_balance.balance}}</td>
+
+</tr>

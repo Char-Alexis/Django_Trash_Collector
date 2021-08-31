@@ -15,12 +15,12 @@
     <p>Employee Navbar</p>
     {% endif %}
 
-    {% comment %} revistit for possible correction {% endcomment %}
+    {% comment %} revisit for possible correction {% endcomment %}
 
     <nav class= "navigate">    
-      <a href ="#change pickup day">Change Pickup Day</a>
-      <a href ="#suspend account">Suspend Account</a>
-      <a href ="#account info">Account Info</a>
+      <a href="{% url 'customers:update' user.id %}">Change Pickup Day</a>
+      <a href="#suspend account">Suspend Account</a>
+      <a href="#account info">Account Info</a>
     </nav>
 
 
