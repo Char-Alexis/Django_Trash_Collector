@@ -36,6 +36,19 @@ def index(request):
         # TODO: Redirect the user to a 'create' function to finish the registration process if no customer record found
         return HttpResponseRedirect('employees:create')
 
+def create(request):
+    user = request.user
+    if request.method == "POST":
+        name = request.POST.get('name')
+        zip_code = request.POST.get('zipcode')
+        new_employee= Employees(name=name,zip_code=zip_code)
+        new_employee.save()
+        return HttpResponseRedirect(reverse('employees:index'))
+    else:
+        Employees= apps.get_model('employees.Employees')
+        all_employees= Employees.object.all()
+        return render(request,'employees/create.html',{'all_employees:all_employees'})
+
 
 
 
