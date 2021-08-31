@@ -61,9 +61,13 @@ def detail(request, user_id):
 def update(request, user_id):
     user = User.objects.get(pk=user_id)
     customer = Customer.objects.get(user=user)
-    # form = CustomerUpdateForm(instance=customer)
     
     if request.method == 'POST':
+        customer.name = request.POST.get('name')
+        customer.user = request.POST.get('user')
+        customer.address = request.POST.get('address')
+        customer.zip_code = request.POST.get('zipcode')
+        customer.balance = request.POST.get('balance')
         customer.weekly_pickup_day = request.POST.get('weekly_pickup_day')
         customer.one_time_pickup = request.POST.get('one_time_pickup')
         customer.suspend_start = request.POST.get('suspend_start')
