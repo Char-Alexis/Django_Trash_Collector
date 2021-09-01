@@ -1,14 +1,16 @@
+# # from trash_collector.employees.models import Employees
+# from django.http.response import HttpResponseRedirect
+# # from trash_collector.customers.models import Customer
+# # from trash_collector.customers.views import User
 # from trash_collector.employees.models import Employees
-from django.http.response import HttpResponseRedirect
-from trash_collector.customers.models import Customer
-from trash_collector import employees
-from trash_collector.customers.views import User
-from trash_collector.employees.models import Employees
-from django.http import HttpResponse
+# from django.http import HttpResponse
+# from django.shortcuts import render
+# from django.apps import apps
+from .models import Employees
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.apps import apps
-
-
+from django.urls import reverse
 # Create your views here.
 
 # TODO: Create a function for each path created in employees/urls.py. Each will need a template as well.
@@ -28,6 +30,7 @@ def index(request):
         # find all customers in employee's zip code
         zip_code_customers = Customer.objects.filter(zip_code=logged_in_employee.zip_code)
         # find all customers who are not suspended
+        not_suspended_customers = Customer.objects.filter()
         
         # find customers with pickupday tihs day or one time pickup today
         # todays_customers = zip_code_customers.filter()
@@ -37,18 +40,23 @@ def index(request):
         return HttpResponseRedirect('employees:create')
 
 def create(request):
-    user = request.user
+    # user = request.user
+    # logged_in_employee = Employees.objects.get(user=user)
     if request.method == "POST":
         name = request.POST.get('name')
-        zip_code = request.POST.get('zipcode')
-        new_employee= Employees(name=name,zip_code=zip_code)
-        new_employee.save()
+        zip_code = request.POST.get('zip_code')
+        user = request.POST.get('user')
+        new_employees = Employees (name=name, zip_code=zip_code)
+        new_employees.save()
         return HttpResponseRedirect(reverse('employees:index'))
     else:
-        Employees= apps.get_model('employees.Employees')
-        all_employees= Employees.object.all()
-        return render(request,'employees/create.html',{'all_employees:all_employees'})
+        # Employees= apps.get_model('employees.Employees')
+        # all_employees= Employees.object.all()
+        return render(request,'employees/create.html')
 
+def detail(request, user_id):
+    employees_from_db = Employees.objects.get(pk=user_id)
+    return render(request, 'employees/detail.html', {'employees': employees_from_db})
 
 
 
