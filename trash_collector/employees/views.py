@@ -11,6 +11,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.apps import apps
 from django.urls import reverse
+import datetime
 # Create your views here.
 
 # TODO: Create a function for each path created in employees/urls.py. Each will need a template as well.
@@ -26,15 +27,31 @@ def index(request):
     try:
         # This line inside the 'try' will return the customer record of the logged-in user if one exists
         logged_in_employee = Employees.objects.get(user=user)
-            # find logged in employee so we can get their zip code
+        # find logged in employee so we can get their zip code
         # find all customers in employee's zip code
         zip_code_customers = Customer.objects.filter(zip_code=logged_in_employee.zip_code)
         # find all customers who are not suspended
-        not_suspended_customers = Customer.objects.filter()
-        
+def filter(request):
+        todays_date = datetime.today()
+        active_customers = []
+        for customer in zip_code_customers:
+            if suspend_start < todays_date and suspend_end > todays_date:
+                pass
+            else:
+                active_customers.append(customer)
+                
         # find customers with pickupday tihs day or one time pickup today
-        # todays_customers = zip_code_customers.filter()
+        # todays_customers = active_customers.objects.filter()
+
+        todays_customers = []
+        for customer in active_customers:
+            if weekly_pickup_day == todays_date or one_time_pickup == todays_date:
+                todays_customers.append(customer)
+            else:
+                pass
+
         return render(request, 'employees/index.html')
+
     except:
         # TODO: Redirect the user to a 'create' function to finish the registration process if no customer record found
         return HttpResponseRedirect('employees:create')

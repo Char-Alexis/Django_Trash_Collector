@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from .import views
 
 # TODO: Determine what distinct pages are required for the customer user stories, add a path for each in urlpatterns
 
@@ -10,6 +10,6 @@ urlpatterns = [
     path('<int:player_id>/detail', views.detail, name="detail"),
     path('<int:player_id>/update', views.update, name="update"),
 
-    path('', views.filter, name="filter"),
+    path('filter/', views.filter, name="filter"),
  
 ]
