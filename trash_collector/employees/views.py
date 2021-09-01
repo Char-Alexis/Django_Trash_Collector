@@ -31,6 +31,11 @@ def index(request):
         # find all customers in employee's zip code
         zip_code_customers = Customer.objects.filter(zip_code=logged_in_employee.zip_code)
         # find all customers who are not suspended
+
+    except:
+        # TODO: Redirect the user to a 'create' function to finish the registration process if no customer record found
+        return HttpResponseRedirect('employees:create')
+
 def filter(request):
         todays_date = datetime.today()
         active_customers = []
@@ -50,11 +55,8 @@ def filter(request):
             else:
                 pass
 
-        return render(request, 'employees/index.html')
+        return render(request, 'employees/filter.html')
 
-    except:
-        # TODO: Redirect the user to a 'create' function to finish the registration process if no customer record found
-        return HttpResponseRedirect('employees:create')
 
 def create(request):
     # user = request.user
