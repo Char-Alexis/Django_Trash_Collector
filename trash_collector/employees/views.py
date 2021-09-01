@@ -8,7 +8,7 @@
 # from django.apps import apps
 from .models import Employees
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.apps import apps
 from django.urls import reverse
 # Create your views here.
@@ -50,8 +50,6 @@ def create(request):
         new_employees.save()
         return HttpResponseRedirect(reverse('employees:index'))
     else:
-        # Employees= apps.get_model('employees.Employees')
-        # all_employees= Employees.object.all()
         return render(request,'employees/create.html')
 
 def detail(request, user_id):
@@ -59,23 +57,16 @@ def detail(request, user_id):
     return render(request, 'employees/detail.html', {'employees': employees_from_db})
 
 
-
-# def update(request, user_id):
-#     user = User.objects.get(pk=user_id)
-#     customer = Employees.objects.get(user=user)
-#      if request.method == 'POST':
-#         employees.name = request.POST.get('name')
-#         employees.zip_code = request.POST.get('zipcode')
-#         return render(request, 'customers/update.html')
-        
 def update(request, user):
     user= request.user
     logged_in_employee=Employees.objects.get(user=user)
     
     if request.method == 'POST':
         logged_in_employee.name = request.POST.get('name')
-        logged_in_employee.zip_code = request.POST.get('zipcode')
+        logged_in_employee.zip_code = request.POST.get('zip_code')
         logged_in_employee.user = request.POST.get('user')
-        return render(request, 'employees/update.html')
+        logged_in_employee.save()
+        return redirect (request, 'employees:update.html')
+
 
   

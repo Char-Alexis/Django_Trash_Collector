@@ -1,35 +1,14 @@
 <!-- confirm that i have completed a pickup AND all confirmed pickups should have a charge  -->
 {% extends "base.html" %}
 
-{% block title %}Complete Pickup/Filter{% endblock %}
-
-{% block header %}Filter{% endblock %}
-    <form action = "" method="POST">
-
-       {%csrf_token %}
-       <input type ="confirm" name="confirm"
-       value="Confirm">
-
-    </form>
-<!-- 
-    I want to be able to filter customers in my pickup area by a particular 
-    day of the week to see who gets a pickup for the day selected.  -->
+{% block title %}Complete Pickup{% endblock %}
 
     
 {% block content %}
-<form method="post">
+<form action= "{%url 'employees:update' %}" method= "POST"> 
     {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Confirm!">
     
-    Weekly Pickup Day:
-    {{<select name="weekly_pickup_day" id="user">
-        {% for day in days_of_the_week %}
-            <option value="{{ day }}" {% if day == user.customer.first.weekly_pickup_day %}selected{% endif %}>{{ day }}</option>
-        {% endfor %}
-    </select><br>
-    One Time Pickup: <input type="date" name="one_time_pickup" id="one_time_pickup" value="{{ user.customer.one_time_pickup date:"mm/dd/YYYY" }}"><br>
-    Suspend Start: <input type="date" name="suspend_start" id="suspend_start" value="{{ user.customer.suspend_start date:"mm/dd/YYYY" }}"><br>
-    Suspend End: <input type="date" name="suspend_end" id="suspend_end" value="{{ user.customer.suspend_end date:"mm/dd/YYYY" }}"><br>}}
-    <input type="submit" value="Update!">
-   
 </form>
 {% endblock %}
