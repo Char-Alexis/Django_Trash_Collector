@@ -11,7 +11,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.apps import apps
 from django.urls import reverse
-import datetime
+from datetime import date
 # Create your views here.
 
 # TODO: Create a function for each path created in employees/urls.py. Each will need a template as well.
@@ -31,16 +31,10 @@ def index(request):
         # find all customers in employee's zip code
         zip_code_customers = Customer.objects.filter(zip_code=logged_in_employee.zip_code)
         # find all customers who are not suspended
-
-    except:
-        # TODO: Redirect the user to a 'create' function to finish the registration process if no customer record found
-        return HttpResponseRedirect('employees:create')
-
-def filter(request):
-        todays_date = datetime.today()
+        todays_date = date.today()
         active_customers = []
         for customer in zip_code_customers:
-            if suspend_start < todays_date and suspend_end > todays_date:
+            if customer.suspend_start < todays_date and customer.suspend_end > todays_date:
                 pass
             else:
                 active_customers.append(customer)
@@ -50,10 +44,22 @@ def filter(request):
 
         todays_customers = []
         for customer in active_customers:
-            if weekly_pickup_day == todays_date or one_time_pickup == todays_date:
+            if customer.weekly_pickup_day == todays_date or customer.one_time_pickup == todays_date:
                 todays_customers.append(customer)
             else:
                 pass
+        
+        context = {
+            'todays_customers': todays_customers
+        }
+        return render(request, 'employees/index.html', context)
+
+    except:
+        # TODO: Redirect the user to a 'create' function to finish the registration process if no customer record found
+        return HttpResponseRedirect(reverse('employees:create'))
+
+def filter(request):
+        
 
         return render(request, 'employees/filter.html')
 
@@ -64,8 +70,7 @@ def create(request):
     if request.method == "POST":
         name = request.POST.get('name')
         zip_code = request.POST.get('zip_code')
-        user = request.POST.get('user')
-        new_employees = Employees (name=name, zip_code=zip_code)
+        new_employees = Employees (name=name, user=request.user, zip_code=zip_code)
         new_employees.save()
         return HttpResponseRedirect(reverse('employees:index'))
     else:
