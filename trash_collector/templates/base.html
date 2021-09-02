@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="./stylesheet.css">
   {% comment %} confirm .css => .html link {% endcomment %}
 </head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
 <body>
 {% if user.is_authenticated %}
   {% for group in user.groups.all%}
@@ -18,17 +20,19 @@
 
     {% comment %} revisit for possible correction {% endcomment %}
 
-    <nav class= "navigate">    
+ 
+    
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+      <!-- Navbar content -->
       <a href="{% url 'customers:update' user.id %}">Change Pickup Day</a>
       <a href="{% url 'employees:index' %}">Todays Customers</a>
-      <a href="#suspend account">Suspend Account</a>
-      <a href="#account info">Account Info</a>
+     
     </nav>
-
-
+    
 
   {% endfor %}
   <p><a href="{% url 'logout' %}">Log Out</a></p>
+
 {% endif %}
   <main>
     <h1>{% block header %} {% endblock %}</h1>
@@ -39,3 +43,4 @@
 </html>
 {# This is the parent template that should be extended by any other view you create #}
 {# Todo: Add navbar links, link to stylesheets, style layout #}
+
