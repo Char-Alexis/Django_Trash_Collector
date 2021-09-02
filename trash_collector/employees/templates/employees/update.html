@@ -8,7 +8,12 @@
 <form action= "{%url 'employees:update' %}" method= "POST"> 
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Confirm!">
+    <select name="customer" id="customer">
+        {% for customer in logged_in_customer %}
+        <option value="{{user.id}}"></option>>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Confirm">
     
 </form>
 {% endblock %}

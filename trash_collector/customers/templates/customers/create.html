@@ -1,30 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Hero</title>
-</head>
-<body>
-    <form method="post">
-        {% csrf_token %}
-        Name: <input type="text" name="name" id="name"><br />
-        Address: <input type="text" name="address" id="address"><br />
-        Zipcode: <input type="text" name="zipcode" id="zipcode"><br />
-        Balance: <input type="number" name="balance" id="balance" step=".01" value="0.00"><br />
-        Weekly Pickup Date:  
-        <select name="weekly pickup day" id="weekly pickup day">
-            {% for day in days_of_the_week %}
-                <option val="day">{{ day }}</option>
-            {% endfor %}
-        </select><br />
-        One Time Pickup Date: <input type="date" name="one time pickup date" id="one time pickup date"><br />
-        Suspend Start:<input type="date" name="suspend start" id="suspend start"><br />
-        Suspend End:<input type="date" name="suspend end" id="suspend end"><br />
-        <button type="submit">Add!</button>
-    </form>
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    
+<body>
+    <h3>Enter your information</h3>
+    <form>
+        <form method="post">
+            {% csrf_token %}
+            <h5>Name</h5> 
+            <input type="text" name="name" id="name"><br />
+            <h5>Address</h5> 
+            <input type="text" name="address" id="address"><br />
+            <h5>Zipcode</h5> 
+            <input type="text" name="zipcode" id="zipcode"><br />
+            <button type="submit" class="btn btn-outline-dark" >Add</button>
+        </form>
+      </form>
 
 </body>
 </html>

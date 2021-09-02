@@ -15,6 +15,9 @@
     {% if group.name == "Customers" %}
     <p>Customer Navbar</p>
     {% elif group.name == "Employees" %}
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+      <a href="{% url 'customers:update' user.id %}">Change Pickup Day</a>
+      <a href="{% url 'customers:detail' user.id %}">Customer Balance</a>
     <p>Employee Navbar</p>
     {% endif %}
 
@@ -22,9 +25,7 @@
 
  
     
-    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-      <!-- Navbar content -->
-      <a href="{% url 'customers:update' user.id %}">Change Pickup Day</a>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">    
       <a href="{% url 'employees:index' %}">Todays Customers</a>
      
     </nav>

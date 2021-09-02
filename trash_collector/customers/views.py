@@ -43,8 +43,7 @@ def create(request):
         suspend_end = request.POST.get('suspend end')
         new_customer = Customer(name=name, user=user, address=address, zip_code=zip_code, balance=balance, weekly_pickup_day=weekly_pickup_day, one_time_pickup= one_time_pickup, suspend_start=suspend_start, suspend_end=suspend_end)
         new_customer.save()
-        return HttpResponseRedirect('customers:index')
-    
+        return HttpResponseRedirect(reverse('customers:index'))
     context = {
         'days_of_the_week': DayOfTheWeek,
     }
@@ -52,12 +51,11 @@ def create(request):
 
 
 def detail(request, user_id):
-    customer_from_db = Customer.objects.get(pk=user_id)
+    logged_in_customer = Customer.objects.get(pk=user_id)
     context = {
-        'customer_from_db': customer_from_db
+        'logged_in_customer': logged_in_customer
     }
-    # added in context
-    return render(request, 'customers/detail.html')
+    return render(request, 'customers/detail.html',  context)
 
 
 def update(request, user_id):
@@ -66,16 +64,6 @@ def update(request, user_id):
     form = CustomerUpdateForm(instance=customer)
     
     if request.method == 'POST':
-        # customer.name = request.POST.get('name')
-        # customer.user = request.POST.get('user')
-        # customer.address = request.POST.get('address')
-        # customer.zip_code = request.POST.get('zipcode')
-        # customer.balance = request.POST.get('balance')
-        # customer.weekly_pickup_day = request.POST.get('weekly_pickup_day')
-        # customer.one_time_pickup = request.POST.get('one_time_pickup')
-        # customer.suspend_start = request.POST.get('suspend_start')
-        # customer.suspend_end = request.POST.get('suspend_end')
-        # customer.save()
         form = CustomerUpdateForm(request.POST, instance=customer)
         if form.is_valid():
             form.save()
@@ -84,6 +72,7 @@ def update(request, user_id):
 
         context = {
             'days_of_the_week': DayOfTheWeek,
+            'form': form,
         }
         return render(request, 'customers/update.html', context)
 

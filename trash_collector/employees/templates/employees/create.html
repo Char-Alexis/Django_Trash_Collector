@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create</title>
 </head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
 <body>
+    <h3>Enter your information</h3>
+
     <form action="{% url 'employees:create' %}" method='POST'>{% csrf_token %}
-    Name:<input type="text" name="name" id="name"><br />
-    Zip code: <input type="text" name="zip_code" id="zip_code"><br />
-    <input type="submit" value="Add!">
+    <h5>Name</h5> 
+    <input type="text" name="name" id="name"><br />
+    <h5>Zip code</h5> 
+    <input type="text" name="zip_code" id="zip_code"><br />
+
+    <button type="submit" class="btn btn-outline-dark" >Add</button>
+
+    
 </form>
 </body>
 </html>

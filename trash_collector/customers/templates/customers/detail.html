@@ -8,9 +8,9 @@
 {% block content %}
 <h1>Current Balance</h1>
 
-{% for check_balance in Customers %}
-<tr>
-    <td>{{check_balance.name}}</td>
-    <td>{{check_balance.balance}}</td>
 
-</tr>
+{{customers}} has {{customer.balance}} 
+<a href="{%url 'customers:detail' user_id %}">Done</a> 
+
+{% endblock %}
+

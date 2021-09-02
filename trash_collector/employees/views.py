@@ -65,8 +65,6 @@ def filter(request):
 
 
 def create(request):
-    # user = request.user
-    # logged_in_employee = Employees.objects.get(user=user)
     if request.method == "POST":
         name = request.POST.get('name')
         zip_code = request.POST.get('zip_code')
@@ -77,20 +75,19 @@ def create(request):
         return render(request,'employees/create.html')
 
 def detail(request, user_id):
-    employees_from_db = Employees.objects.get(pk=user_id)
-    return render(request, 'employees/detail.html', {'employees': employees_from_db})
+    employees = Employees.objects.get(pk=user_id)
+    return render(request, 'employees/detail.html', {'employees': employees})
 
 
-def update(request, user):
-    user= request.user
-    logged_in_employee=Employees.objects.get(user=user)
-    
+def update(request, user_id):
+    employees= Employees.objects.get(user=user_id)
     if request.method == 'POST':
-        logged_in_employee.name = request.POST.get('name')
-        logged_in_employee.zip_code = request.POST.get('zip_code')
-        logged_in_employee.user = request.POST.get('user')
-        logged_in_employee.save()
-        return redirect (request, 'employees:update.html')
+        employees.name = request.POST.get('name')
+        employees.zip_code = request.POST.get('zip_code')
+        employees.save()
+        return HttpResponseRedirect(reverse('employees:index'))
+    else:
+        return redirect (request, 'employees/update.html')
 
 
   
