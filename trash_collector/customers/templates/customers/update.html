@@ -17,8 +17,7 @@
     Request One Time Pickup: <input type="date" name="one_time_pickup" id="one_time_pickup" value="{{ user.customer.first.one_time_pickup|date:"YYYY-MM-DD" }}"><br>
     Suspend Start: <input type="date" name="suspend_start" id="suspend_start" value="{{ user.customer.first.suspend_start|date:"YYYY-MM-DD" }}"><br>
     Suspend End: <input type="date" name="suspend_end" id="suspend_end" value="{{ user.customer.first.suspend_end|date:"YYYY-MM-DD" }}"><br>
-       <input type="submit" class="btn btn-outline-dark" value="Update">
-
+    <input type="submit" class="btn btn-outline-dark" value="Update">
 </form>
 {% endblock %}
 
